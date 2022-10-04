@@ -44,6 +44,15 @@ public class FirstClass {
         float result2 = x/y;
         System.out.println(result2);
 
+        //auto
+        String marka = "Mazda";
+        String krāsa = "zaļa";
+        int nobraukums = 30000;
+        double motors = 2.2;
+        String motoraTips = "dīzelis";
+        boolean vaiIrTehnApskate = true;
+
+
 
     }
 }
