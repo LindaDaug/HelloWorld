@@ -52,8 +52,6 @@ public class FirstClass {
         String motoraTips = "dīzelis";
         boolean vaiIrTehnApskate = true;
 
-
-
     }
 }
 
