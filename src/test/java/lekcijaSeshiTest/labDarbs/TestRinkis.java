@@ -2,9 +2,10 @@ package lekcijaSeshiTest.labDarbs;
 
 import lekcijaCetri.labDarbs.Rinkis;
 import org.testng.Assert;
-import org.testng.annotations.Test;
+import org.testng.annotations.*;
 
 public class TestRinkis {
+
 
     @Test
     public void testRinkaLaukumaFormula() {
@@ -20,6 +21,19 @@ public class TestRinkis {
         Assert.assertEquals(actualArea, expectedArea);
 
 
+    }
+@BeforeMethod
+public void sagavatosanas(){
+    System.out.println("Šī metode tiek izpildīta pirms katra testa");
+}
+@AfterMethod
+public void pecDarbibas(){
+    System.out.println("Šī metode tiek izpildīta pec katra testa");
+}
+
+    @AfterTest
+    public void pectest(){ //tearDown
+        System.out.println("Šī testa anotācija");
     }
 
     @Test
