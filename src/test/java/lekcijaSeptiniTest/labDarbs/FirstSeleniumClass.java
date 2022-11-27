@@ -8,36 +8,36 @@ import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
 public class FirstSeleniumClass {
-    WebDriver parluks;
+    WebDriver driver;
 
     @BeforeMethod
 public void setUpBrowser() {
-        parluks = new ChromeDriver();
-        parluks.navigate().to("https://lu.lv");
-        parluks.manage().window().maximize();
+        driver = new ChromeDriver();
+        driver.navigate().to("https://lu.lv");
+        driver.manage().window().maximize();
     }
 
     @AfterMethod
-    public void tearDownBrowser()
-    {
-        parluks.quit();
+    public void tearDownBrowser(){
+        driver.quit();
+    }
+
+//    @Test
+//    public void testFirstWebPage(){
+//        datePicker.setDate("2",4,"1993");
+//    }
+
+    @Test
+    public void testPageTitle(){
+        String nosaukums = driver.getTitle();
+        Assert.assertEquals(nosaukums,"Latvijas Universitāte");
     }
 
     @Test
-    public void testFirstWebPage (){
-        System.out.println("Pirmais Selenium tests");
-
+    public void testRandom(){
 
     }
-    @Test
-    public void testPagetitle () {
 
-        parluks.get("https://lu.lv");
-        String nosaukums = parluks.getTitle();
-        Assert.assertEquals(nosaukums, "Latvijas Universitāte");
-
-
-    }
-    }
+}
 
 

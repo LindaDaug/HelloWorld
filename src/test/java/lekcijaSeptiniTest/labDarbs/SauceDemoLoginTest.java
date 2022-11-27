@@ -1,88 +1,61 @@
 package lekcijaSeptiniTest.labDarbs;
 
-import org.openqa.selenium.By;
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
-import org.openqa.selenium.chrome.ChromeDriver;
+import lekcijaAstoņi.pageObjects.LoginPage;
+import lekcijaAstoņi.pageObjects.ProductsPage;
+import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.testng.Assert;
-import org.testng.annotations.AfterMethod;
-import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
 public class SauceDemoLoginTest extends BaseTest {
 
-//
-//    @Test
-//    public void testLoginEmptyUsernameAndPassword() {
-//        testLogin("","", "Epic sadface: Username is required");
-//    }
 
     @Test
-    public void testLoginEmptyUsernameAnsPasword() throws InterruptedException {
-        WebElement lietotjVardaIevadesLauks = parluks.findElement(By.id("user-name"));
-        lietotjVardaIevadesLauks.sendKeys("mazpamazam");
+    public void testLoginPageObjectExample() {
+        LoginPage loginPage = new LoginPage(driver);
+        loginPage.login("asdasd", "asdasdasda");
+        Assert.assertEquals(loginPage.getErrorText(), "Epic sadface: Username and password do not match any " +
+                "user in this service");
+    }
 
-        WebElement parolesIevadesLauks = parluks.findElement(By.id("password"));
-        parolesIevadesLauks.sendKeys("bumbum");
+    @Test
+    public void testLoginWrongUsernameAndPassword() {
+        LoginPage loginPage = new LoginPage(driver);
+        loginPage.login("asdasd", "asdasdasda");
+        Assert.assertEquals(loginPage.getErrorText(), "Epic sadface: Username and password do not match any " +
+                "user in this service");
+    }
 
-        WebElement loginPoga = parluks.findElement(By.id("login-button"));
-        loginPoga.click();
+    @Test
+    public void testLoginEmptyUsernameAndPassword() {
+        LoginPage loginPage = new LoginPage(driver);
+        loginPage.login("", "");
+        Assert.assertEquals(loginPage.getErrorText(), "Epic sadface: Username is required");
+    }
 
-        WebElement errorTextField = parluks.findElement(By.cssSelector("div.error-message-container h3"));
+    @Test
+    public void testLoginEmptyUsernameAndFilledPassword() {
+        LoginPage loginPage = new LoginPage(driver);
+        loginPage.login("", "asdasdasdas");
+        Assert.assertEquals(loginPage.getErrorText(), "Epic sadface: Username is required");
+    }
 
-        String errorText = errorTextField.getText();
-        Assert.assertEquals(errorText,"Epic sadface: Username and password do not match any user in this service");
+    @Test
+    public void testLoginFilledUsernameAndEmptyPassword() {
+        LoginPage loginPage = new LoginPage(driver);
+        loginPage.login("asdas", "");
+        Assert.assertEquals(loginPage.getErrorText(), "Epic sadface: Password is required");
+    }
 
-        Thread.sleep(5000);
+    @Test
+    public void testSuccessfulLogin() {
+        LoginPage loginPage = new LoginPage(driver);
+        loginPage.login("standard_user", "secret_sauce");
+        ProductsPage produktuLapa = new ProductsPage(driver);
+
+        wait.until(ExpectedConditions.visibilityOf(produktuLapa.getPageTitle()));
+        Assert.assertEquals(produktuLapa.getPageTitle().getText(), "PRODUCTS");
 
     }
 
-//    @Test
-//    public void testLoginEmptyUsernameAndFilledPassword () {
-//        testLogin("", "dfsdfsdfsd", "Epic sadface: Username is required");
-//    }
-//
-//
-//
-//    @Test
-//    public void testLoginFilledUsernameAndEmptyPassword () {
-//        testLogin("testtest", "", "Epic sadface: Password is required");
-//    }
-
-
-
-
-
-
-//    @Test
-//    public void testLoginEmptyUsername() throws InterruptedException {
-//        WebElement lietotjVardaIevadesLauks = parluks.findElement(By.id("user-name"));
-//        lietotjVardaIevadesLauks.sendKeys("");
-//
-//        WebElement loginPoga = parluks.findElement(By.id("login-button"));
-//        loginPoga.click();
-//
-//        WebElement errorTextField = parluks.findElement(By.cssSelector("div.error-message-container h3"));
-//
-//        String errorText = errorTextField.getText();
-//        Assert.assertEquals(errorText,"Epic sadface: Username is required");
-//
-//        Thread.sleep(5000);
-//
-//    }
-
-//    @Test
-//    public void testLoginEmptyPassword() throws InterruptedException {
-//        WebElement ParolesIevadesLauks = parluks.findElement(By.id("password"));
-//        ParolesIevadesLauks.sendKeys("");
-////        WebElement loginPoga = parluks.findElement(By.id("login-button"));
-//        loginPoga.click();
-////        WebElement errorTextField = parluks.findElement(By.cssSelector("div.error-message-container h3"));
-////        String errorText = errorTextField.getText();
-//        Assert.assertEquals(errorText,"Epic sadface: Password is required");
-////        Thread.sleep(5000);
-//
-//    }
-
-
 }
+
